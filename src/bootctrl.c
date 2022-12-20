@@ -77,8 +77,8 @@ int getAvailableSlot() {
  *   true if success, false if failed
  */
 bool setActiveBootSlot(int slot) {
-    int currSlot, ret;
-    char buf[10];
+    int currSlot, availSlot, ret;
+    char buf[30];
     const char *value;
     struct uboot_ctx *ctx;
 
@@ -90,8 +90,9 @@ bool setActiveBootSlot(int slot) {
     // get current slot and compare
     value = libuboot_get_env(ctx, KEY_ACTIVE_PART);
     currSlot = atoi(value) - A_PARTITION_INDEX;
-    if (currSlot == slot) {
-        fprintf(stdout, "[libbootctrl] INFO: slot[%d] already active state.\n", slot);
+    availSlot = (currSlot == 0) ? 1 : 0;
+    if (availSlot != slot) {
+        fprintf(stdout, "[libbootctrl] INFO: slot[%d] is not available.\n", slot);
         return false;
     }
 
