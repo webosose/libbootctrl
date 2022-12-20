@@ -1,0 +1,7 @@
+BUILD*
+oe-logs
+oe-workdir
+build
+.vscode
+.*.swp
+bitbake-*.log
